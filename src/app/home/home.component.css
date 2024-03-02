@@ -1,0 +1,155 @@
+.rowm{
+    padding: 10px;
+    font-size: small;
+}
+.vis{
+    visibility: hidden;
+}
+.navcla{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 11px;
+    color: white;
+
+}
+.navbar-brand{
+    width:auto;
+    height: 45px;
+    background-color: #049fd9;
+}
+.txt{
+    height: 25px;
+    width: 100%;
+}
+.txtl{ 
+    font-weight: bold;
+}
+.btn{
+    padding: 4px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    /* margin-inline: 10px; */
+    background-color: #049fd9;
+    color: white;
+    border-radius: 20px;
+    width: 5%;
+}
+/* .rtxt{
+    padding: 30px;
+} */
+.btn1{
+    /* margin-left: 250px;
+    
+    margin-top: 10px;
+    margin-bottom: 20px; */
+    padding: 5px;
+    width: 100px;
+    background-color: gray;
+    border-radius: 20px;
+    color: white;
+}
+.select{
+    background-color: white;
+    width: 100%;
+    height: 25px;
+}
+.sb{
+    /* border-top-style: solid; */
+    border-width: 0.5px;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+.sb1{
+    width: 25%;
+    margin-block: 4%;
+    margin-inline: 5%;
+}
+.table{
+    width:100%
+}
+.tb{
+    margin: 20px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+    /* padding-top: 5px; */
+}
+.ds{
+    margin: 1%;
+    padding: 0px;
+}
+.sr{
+    /* margin-left: 40px; */
+    /* border-top-style: solid; */
+    border-bottom-style: solid;
+    border-width: 0.5px;
+    /* background-color: #049fd9; */
+    height: 35px;
+
+}
+.srl{
+    color: white;
+    text-align: center;
+    /* padding-top: 20px; */
+    /* margin-top: 15px; */
+
+}
+
+.accordion-button{
+    background-color: #049fd9;
+    height: 10px;
+}
+
+.search1{
+    margin-block: 0.6%;
+}
+
+/* .sear{
+    margin-inline: auto;
+} */
+
+.sear1{
+    margin-inline: auto;
+    padding-top: 2%;
+}
+
+.txti{
+    width: 50%;
+}
+.container{
+    width: auto;
+    margin-block: 1%;
+}
+
+.pull{
+    text-align: center;
+
+/* margin-top: 2%; */
+}
+
+.container1{
+    margin-inline: 1.3%;
+}
+
+.steps{
+    width: 100%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+}
+
+.ar{
+    width: 11%;
+  margin-inline: 1.5%;
+  background-color: white;
+  color: #049fd9;
+  margin-block: 0.5%;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.form-control{
+    font-size: 12px;
+}

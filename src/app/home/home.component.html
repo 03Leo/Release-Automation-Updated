@@ -1,0 +1,393 @@
+<div>
+  <nav class="navbar-brand">
+    <p class="navcla">Release Automation Tool</p>
+  </nav>
+</div>
+
+<div style="font-size: 12px;">
+  
+  <div class="container1">
+    <div class="row">
+      <div class="col-sm-3">
+        <h2>Create/ View Release</h2>
+      </div>
+    </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row search1">
+      <div class="col-sm-3 sear">
+        <label class="txtl">Application Name</label>
+        <select class="select" [(ngModel)]="appname" formControlName="appname">
+          <option value="Select" selected>--Select--</option>
+          <option value="SSUE">SSUE</option>
+          <option value="NDSA">NDSA</option>
+          <option value="SORA">SORA</option>
+          <option value="SLM">SLM</option>
+          <option value="Support Central">Support Central</option>
+          <option value="Oracle Project">OP</option>
+        </select>
+      </div>
+
+      <div class="col-sm-3 sear">
+        <label class="txtl">Release Name/Number</label>
+        <input type="text" formControlName="name" class="txt">
+      </div>
+
+      <div class="col-sm-3 sear">
+        <label class="txtl" >Release Status</label>
+        <select class="select" formControlName="relstatus">
+          <option value="0">--Select--</option>
+          <option value="1">Scheduled</option>
+          <option value="2">In Progress</option>
+          <option value="3">Comleted</option>
+        </select>
+      </div>
+
+
+      <div class="col-sm-3 sear">
+        <label class="txtl">Requestor</label>
+        <input type="text" formControlName="requestor" class="txt">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 sear">
+        <label class="txtl">CR Number</label>
+        <input type="text" formControlName="CRno" class="txt">
+      </div>
+
+      <div class="col-sm-3 sear">
+        <button (click)="onclick()" type="submit" class="btn sb1"
+          style="width: 25%; margin-block: 4%;">{{Search?"Search":"Search"}}</button>
+        <button (click)="clearForm()" type="clear" class="btn sb1" style="background-color: gray; width: 25%;">Clear</button>
+      </div>
+    </div>
+
+
+  </form>
+  </div>
+
+  <hr>
+
+  <ng-container *ngIf="visible">
+    <!-- <ng-container> -->
+    <div class="accordion" id="accordionExample">
+      <div class="tb">
+        <!-- <div class="accordion-button"> -->
+
+        <div type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+          aria-controls="collapseTwo" class="accordion-button">
+          <h2 class="srl" style="margin-top: 15px;">Search Result</h2>
+        </div>
+        <!-- </div> -->
+        <div id="collapseTwo" class="collapse show" data-bs-parent="#accordion">
+          <div class="d-flex justify-content-center" style="width: 100%;">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr class="rowm">
+                  <th scope="col">Select</th>
+                  <th scope="col">Release Number</th>
+                  <th scope="col">Release Name</th>
+                  <th scope="col">Application</th>
+                  <th scope="col">CR Number</th>
+                  <th scope="col">Release Start Date</th>
+                  <th scope="col">Release End Date</th>
+                  <th scope="col">Release Status</th>
+                  <th scope="col">Requestor</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Creation Date</th>
+                  <th scope="col">Last Updated By</th>
+                  <th scope="col">Last Update Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of dat | paginate: { itemsPerPage: 3, currentPage: p }; let indexOfElment=index;">
+                  <td>
+                    <input type="radio" name="rad" (click)="rdetail(indexOfElment)" [value]="indexOfElment">
+                  </td>
+                  <td>{{row.Release_Number}}</td>
+                  <td>{{row.Release_Name}}</td>
+                  <td>{{row.Application}}</td>
+                  <td>{{row.CR_Number}}</td>
+                  <td>{{row.Release_Start_Date}}</td>
+                  <td>{{row.Release_End_Date}}</td>
+                  <td>{{row.Release_Status}}</td>
+                  <td>{{row.Requestor}}</td>
+                  <td>{{row.Created_By}}</td>
+                  <td>{{row.Creation_Date}}</td>
+                  <td>{{row.Last_Updated_By}}</td>
+                  <td>{{row.Last_Update_Date}}</td>
+                </tr>
+              </tbody>
+            </table>
+          
+          </div>
+          <div style="text-align: end;"><pagination-controls (pageChange)="p = $event"></pagination-controls></div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="visible2">
+    <div class="accordion" id="accordionExample">
+      <div class="tb">
+        <div type="button" data-bs-toggle="collapse" data-bs-target="#collapseT" aria-expanded="false"
+          aria-controls="collapseT" class="accordion-button">
+          <h2 class="srl" style="margin-top: 15px;">Release Details</h2>
+        </div>
+        <div id="collapseT" class="collapse show" data-bs-parent="#accordion">
+          <div class="container">
+            <div class="row" *ngFor="let rld of rldat;">
+              <div class="col sear1">
+                <label class="txtl">Application Name</label>
+                <input class="txti" style="margin-left: 20%;" value={{rld.Application}}>
+              </div>
+              <div class="col sear1">
+                <label class="txtl">CR Number</label>
+                <input class="txti" style="margin-left: 27.1%;" value={{rld.CR_Number}}>
+              </div>
+            </div>
+            <div class="row" *ngFor="let rld of rldat;">
+              <div class="col sear1">
+                <label class="txtl">Release Number</label>
+                <input class="txti" style="margin-left: 21.3%;" value={{rld.Release_Number}}>
+              </div>
+              <div class="col sear1">
+                <label class="txtl">Release Name</label>
+                <input class="txti" style="margin-left: 24.3%;" value={{rld.Release_Name}}>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let rld of rldat;">
+              <div class="col sear1">
+                <label class="txtl">Start Date</label>
+                <input class="txti" style="margin-left: 27.1%;" value={{rld.Release_Start_Date}}>
+              </div>
+              <div class="col sear1">
+                <label class="txtl">End Date</label>
+                <input class="txti" style="margin-left: 29.3%;" value={{rld.Release_End_Date}}>
+              </div>
+            </div>
+            <div class="row" *ngFor="let rld of rldat;">
+              <div class="col sear1">
+                <label class="txtl">Requestor</label>
+                <input class="txti" style="margin-left: 27.1%;" value={{rld.Requestor}}>
+              </div>
+              <div class="col sear1">
+                <label class="txtl">Release Status</label>
+                <input class="txti" style="  margin-left: 23.6%;" value={{rld.Release_Status}}>
+              </div>
+            </div>
+
+            <div class="pull">
+              <button (click)="onclick1()" type="submit" class="btn" style="width: 200px; ">{{Pull_CR_Information?"Pull
+                CR Information":"Pull CR Information"}}</button>
+            </div>
+          </div>
+
+
+
+          <ng-container *ngIf="visible3">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="steps">
+                    <div class="sr">
+                      <label style="color: #049fd9; text-align: center; font-weight:bold ">Impacted CI
+                        Information</label>
+                    </div>
+                    <table class="table table-striped table-bordered">
+                      <thead>
+
+
+                        <tr class="rowm">
+                          <th scope="col">Impacted CI</th>
+                          <th scope="col">Down Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>SSUE</td>
+                          <td>Y</td>
+                        </tr>
+                        <tr>
+                          <td>SORA</td>
+                          <td>N</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <td style="margin-left: 20px;">
+                    <label class="txtl">Release Description</label><br>
+                    <textarea rows="4" cols="27"></textarea>
+                  </td>
+                </div>
+                </div>
+                <div class="row">
+
+
+                <div class="col">
+                  <div class="steps">
+                    <div class="sr">
+                      <h2 style="color: #049fd9; text-align: center ">Deployment Steps</h2>
+                    </div>
+                    <div>
+                      <button type="submit" class="btn ar" style="width: auto;" (click)="add()">Add Row</button>
+                      <button type="delete" class="btn" style="background-color: red; width: auto;" (click)="del(ind)">Delete Row</button>
+                      <button type="submit" class="btn ar" style="width: auto;" (click)="Save()">Save</button>
+                    </div>
+                    <table class="table table-striped table-bordered" style="font-size: 12px;">
+                      <thead>
+                        <tr class="rowm">
+                          <th scope="col">Select</th>
+                          <th scope="col">Application</th>
+                          <th scope="col">Script Type</th>
+                          <th scope="col">Script Name</th>
+                          <th scope="col">Host/DB Details</th>
+                          <th scope="col">Infra Type</th>
+                          <th scope="col">Execution Sequence</th>
+                          <th scope="col">Seeded Flag</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let abc of depdat; let ind=index;">
+                          <td>
+                            <input type="checkbox" [value]="ind">
+                          </td>
+                          <td>{{abc.Application}}</td>
+                          <td>{{abc.Script_Type}}</td>
+                          <td>{{abc.Script_Name}}</td>
+                          <td>{{abc.Host}}</td>
+                          <td>{{abc.Infra_Type}}</td>
+                          <td>{{abc.Execution_Sequence}}</td>
+                          <td>{{abc.Seeded_Flag}}</td>
+                          <!-- <td>
+                            <input type="checkbox" (click)="del(ind)" [value]="ind">
+                          </td> -->
+                          </tr>
+                          <tr *ngFor="let abc of depdat;" onclick="add()">
+                          <td>
+                            <input [(ngModel)]="abc.Application" class="form-control" type="text" name="{{abc.Application}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Script_Type" class="form-control" type="text" name="{{abc.Script_Type}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Script_Name" class="form-control" type="text" name="{{abc.Script_Name}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Host" class="form-control" type="text" name="{{abc.Host}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Infra_Type" class="form-control" type="text" name="{{abc.Infra_Type}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Execution_Sequence" class="form-control" type="text" name="{{abc.Execution_Sequence}}" />
+                          </td>
+                          <td>
+                            <input [(ngModel)]="abc.Seeded_Flag" class="form-control" type="text" name="{{abc.Seeded_Flag}}" />
+                          </td>
+                          <!-- <td>
+                            <button class="btn"  type="button" (click)="del(ind)">Delete</button>
+                          </td> -->
+                        </tr>
+                        <tr>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatApplication" [(ngModel)]="InsertDat.Application" name="InsertDatApplication" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatScriptType" [(ngModel)]="InsertDat.Script_Type" name="InsertDatScriptType" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatScriptName" [(ngModel)]="InsertDat.Script_Name" name="InsertDatScriptName" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatHost" [(ngModel)]="InsertDat.Host" name="InsertDatHost" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatInfraType" [(ngModel)]="InsertDat.Infra_Type" name="InsertDatInfraType" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatExecutionSequence" [(ngModel)]="InsertDat.Execution_Sequence" name="InsertDatExecutionSequence" />
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" id="InsertDatSeededFlag" [(ngModel)]="InsertDat.Seeded_Flag" name="InsertDatSeededFlag" />
+                          </td>
+                          <td>
+                            <button class="btn ar" type="button" (click)="add()">Add</button>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+
+  </ng-container>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- 
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr class="rowm">
+      <th scope="col">Select</th>
+      <th scope="col">Application</th>
+      <th scope="col">Script Type</th>
+      <th scope="col">Script Name</th>
+      <th scope="col">Host/DB Details</th>
+      <th scope="col">Infra Type</th>
+      <th scope="col">Execution Sequence</th>
+      <th scope="col">Seeded Flag</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let field of fieldArray; let i = index">
+          <td>
+              <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" />
+          </td>
+          <td>
+              <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
+          </td>
+          <td>
+              <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
+          </td>
+          <td>
+              <button class="btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
+          </td>
+      </tr>
+      <tr>
+          <td>
+              <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" />
+          </td>
+          <td>
+              <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
+          </td>
+          <td>
+              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price" name="newAttributePrice" />
+          </td>
+          <td>
+              <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
+          </td>
+      </tr>
+  </tbody>
+</table> -->
